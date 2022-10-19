@@ -10,7 +10,8 @@ ui <- fluidPage(                              # the user interface
       sliderInput(inputId = "s1",
                   label = "My Slider",
                   value = 1, min = 1, max = 20)
-    )
+    ),
+    
     mainPanel(
       tabsetPanel(
         tabPanel("Tab1", "First Tab"),

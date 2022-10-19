@@ -5,6 +5,8 @@ server <- function(input, output, session) {}  # the server
 
 ui <- fluidPage(                              # the user interface
   
+  titlePanel("Multi-page app layout testing"),
+  
   sidebarLayout(
     sidebarPanel(
       sliderInput(inputId = "s1",

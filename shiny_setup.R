@@ -1,4 +1,4 @@
-## User interactivity - click
+## User interactivity
 library(shiny)
 library(ggplot2)
 library(DT)
@@ -10,8 +10,8 @@ server <- function(input, output, session) {
   })
   
   diam <- reactive({
-    user_click <- input$user_click
-    sel <- nearPoints(diamonds, user_click, threshold = 10, maxpoints = 5)
+    user_brush <- input$user_brush
+    sel <- brushedPoints(diamonds, user_brush)
     return(sel)
   })
   
@@ -19,9 +19,10 @@ server <- function(input, output, session) {
 }
 
 ui <- fluidPage(
-  h1("Using the click feature to select specific observations"),
-  plotOutput("plot", click = "user_click"),
-  dataTableOutput("table")
+  h1("Using the brush feature to select specific observations"),
+  plotOutput("plot", brush = "user_brush"),
+  dataTableOutput("table"),
+  downloadButton(outputId = "mydownload", label = "Download Table")
 )
 
 shinyApp(ui = ui, server = server)

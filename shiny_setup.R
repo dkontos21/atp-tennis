@@ -1,27 +1,27 @@
-## Refining datatable
+## User interacrivity
 library(shiny)
 library(ggplot2)
 library(DT)
 
 server <- function(input, output, session) {
-  output$tableDT <- DT::renderDataTable(datatable(diamonds[1:1000,],
-                                                  options = list(paging=F), 
-                                                  rownames=F, 
-                                                  filter = "top") %>% 
-                                          formatCurrency("price", "$") %>%
-                                          formatStyle("price", color = "green") %>%
-                                          formatStyle("cut",
-                                                      transform = "rotateX(20deg) rotateY(5deg) rotateZ(5deg)",
-                                                      backgroundColor = styleEqual(
-                                                        unique(diamonds$cut), c("salmon", "lightblue", "grey", "lightgreen", "lightpink")
-                                                      )
-                                          )
-  ) 
+  
+  output$plot <- renderPlot({
+    ggplot(diamonds, aes(price, carat)) + geom_point()
+  })
+  
+  diam <- reactive({
+    user_brush <- input$user_brush
+    sel <- brushedPoints(diamonds, user_brush)
+    return(sel)
+  })
+  
+  output$table <- DT::renderDataTable(DT::datatable(diam()))
 }
 
 ui <- fluidPage(
-  DT::dataTableOutput("tableDT")
+  h1("Using the brush feature to select specific observations"),
+  plotOutput("plot", brush = "user_brush"),
+  dataTableOutput("table")
 )
 
 shinyApp(ui = ui, server = server)
-

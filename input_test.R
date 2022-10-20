@@ -1,7 +1,8 @@
 # Import data
-tournaments_2020_2022 <- read.csv(file = "csv/1_tournaments/tournaments_2020-2022.csv", header = FALSE)
+tournaments_2020_2022 <- read.csv(file = "csv/1_tournaments/tournaments.csv", header = FALSE)
 colnames(tournaments_2020_2022) <- c("tourney_year_id", "tourney_order", "tourney_type", 
                                      "tourney_name", "tourney_id", "tourney_slug", "tourney_location",
+                                     "tourney_latitude", "tourney_longitude",
                                      "tourney_date", "year", "tourney_month", "tourney_day",
                                      "tourney_singles_draw", "tourney_doubles_draw", "tourney_conditions",
                                      "tourney_surface", "tourney_fin_commit_raw", "currency",

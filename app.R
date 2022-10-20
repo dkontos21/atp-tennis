@@ -2,6 +2,7 @@
 
 library(shiny)
 library(shinythemes)
+library(DT)
 
 # Import tournament data
 tournaments <- read.csv(file = "csv/1_tournaments/tournaments_2020-2022.csv", header = FALSE)
@@ -18,7 +19,12 @@ colnames(tournaments) <- c("tourney_year_id", "tourney_order", "tourney_type",
 
 attach(tournaments)
 
-server <- function(input, output,session){}
+server <- function(input, output,session){
+  
+  # table for the Data table tab
+  
+  output$tableDT <- DT::renderDataTable(DT::datatable(tournaments))
+}
 
 ui <- navbarPage(theme = shinytheme("sandstone"), title = h2("Tournaments of the ATP Tour"),
                  tabPanel(
@@ -39,7 +45,8 @@ ui <- navbarPage(theme = shinytheme("sandstone"), title = h2("Tournaments of the
                  
                  tabPanel("Documentation"),
                  
-                 tabPanel("Data Table with the underlying data")
+                 tabPanel("Data Table with the underlying data",
+                          DT::dataTableOutput("tableDT"))
 )
 
 shinyApp(ui = ui, server = server)

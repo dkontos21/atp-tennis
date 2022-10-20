@@ -16,7 +16,7 @@ ui <- fluidPage(                              # the user interface
     
     mainPanel(
       tabsetPanel(
-        tabPanel("Tab1", "First Tab"),
+        tabPanel("Tab1", "Weblinks with direct tag a()", a(href="https://github.com/serve-and-volley/atp-world-tour-tennis-data.git", "serve-and-volley's GitHub repo")),
         tabPanel("Tab2", "Second Tab"),
         tabPanel("Tab3", "Third Tab")
       )

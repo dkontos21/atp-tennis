@@ -16,6 +16,11 @@ server <- function(input, output, session) {
   })
   
   output$table <- DT::renderDataTable(DT::datatable(diam()))
+  
+  output$mydownload <- downloadHandler(
+    filename = "plotextract.csv",
+    content = function(file) {
+      write.csv(diam(), file)})
 }
 
 ui <- fluidPage(

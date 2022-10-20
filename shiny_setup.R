@@ -3,9 +3,9 @@ library(shiny)
 
 server <- function(input, output, session) {}  # the server 
 
-ui <- fluidPage(                              # the user interface
+ui <- fluidPage(themeSelector(), #test out Shinythemes in the user interface
   
-  titlePanel("Multi-page app layout testing"),
+  titlePanel(strong("Multi-page app layout testing")),
   
   sidebarLayout(
     sidebarPanel(

@@ -24,8 +24,25 @@ attach(tournaments)
 
 server <- function(input, output,session){
   
-  # table for the Data table tab
+  # interactive map
+  output$map <- renderLeaflet({
+    leaflet(tournaments) %>%
+      addCircleMarkers(~tourney_latitude, ~tourney_longitude,
+                 label = ~tourney_name,
+                 labelOptions = labelOptions(textsize = "12px"),
+                 popup = "Test")
+  })
   
+  observe({
+    leafletProxy("map", data = tournaments) %>%
+      clearShapes() %>%
+      addCircleMarkers(~tourney_latitude, ~tourney_longitude,
+                       label = ~tourney_name,
+                       labelOptions = labelOptions(textsize = "12px"),
+                       popup = "Test")
+  })
+  
+  # table for the Data table tab
   output$tableDT <- DT::renderDataTable(DT::datatable(tournaments))
 }
 

@@ -26,7 +26,6 @@ attach(tournaments)
 ui <- navbarPage(theme = shinytheme("sandstone"), title = h3("Tournaments of the ATP Tour"),
                  tabPanel("Interactive Map",
                           leafletOutput('myMap')),
-                 tabPanel("Documentation"),
                  
                  tabPanel("Data Table with the underlying data",
                           DT::dataTableOutput("tableDT"))
@@ -34,11 +33,20 @@ ui <- navbarPage(theme = shinytheme("sandstone"), title = h3("Tournaments of the
 
 server = function(input, output,session) {
   map = leaflet() %>% addTiles() %>% setView(-93.65, 42.0285, zoom = 3)
-  output$myMap = renderLeaflet(map)
+
+#  output$myMap = renderLeaflet(map)
+  output$myMap = renderLeaflet({
+    leaflet(tournaments) %>%
+      addProviderTiles(providers$Esri.WorldTopoMap) %>%
+      addCircleMarkers(~tourney_longitude, ~tourney_latitude,
+                       label = ~tourney_name,
+                       labelOptions = labelOptions(textsize = "12px"),
+                       popup = ~tourney_date)
+  })  
+  
   
   # table for the Data table tab
   output$tableDT <- DT::renderDataTable(DT::datatable(tournaments))
 }
 
-shinyApp(ui = ui, server = server)
 shinyApp(ui = ui, server = server)

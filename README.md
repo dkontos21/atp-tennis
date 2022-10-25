@@ -2,7 +2,7 @@
 
 This repository contains analyses of tennis data. The data was obtained from the official ATP World Tour website using web-scraping scripts developed by **serve-and-volley** available in their [atp-world-tour-tennis data](https://github.com/serve-and-volley/atp-world-tour-tennis-data) repo.
 
-Exploratory data analysis conducted in Python and R. An interactive map of tournament locations was generated with R shiny and can be found on the [shinyapps.io] website.
+Exploratory data analysis conducted in Python and R. An interactive map of tournament locations was generated with R shiny and can be found on the [shinyapps.io](https://dkontos21.shinyapps.io/atp-tennis/) website.
 
 
 ## We will get answers to the following questions:

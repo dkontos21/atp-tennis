@@ -40,10 +40,22 @@ server = function(input, output,session) {
       addProviderTiles(providers$Esri.WorldTopoMap) %>%
       addCircleMarkers(~tourney_longitude, ~tourney_latitude,
                        label = ~tourney_name,
+                       radius = 5, weight = 2,
+                       color = "#dfff4f",
                        labelOptions = labelOptions(textsize = "12px"),
-                       popup = ~tourney_date)
+                       popup = ~tourney_type)
   })  
   
+  # add hover markers
+  observe({
+    leafletProxy("myMap", data = tournaments) %>%
+      clearShapes() %>%
+      addCircleMarkers(~tourney_longitude, ~tourney_latitude,
+                       label = ~tourney_name,
+                       radius = 1, weight = 1,
+                       labelOptions = labelOptions(textsize = "12px"),
+                       popup = ~tourney_type)
+  })
   
   # table for the Data table tab
   output$tableDT <- DT::renderDataTable(DT::datatable(tournaments))
